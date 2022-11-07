@@ -1,0 +1,26 @@
+name: Base Image Create
+
+on:
+  workflow_dispatch:
+
+jobs:
+  manylinux:
+    name: ManyLinux • arm64
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Base Image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: "linux/arm64"
+          push: false
+          tags: base-manylinux-arm64:latest
+          file: ./almalinux8.Dockerfile
