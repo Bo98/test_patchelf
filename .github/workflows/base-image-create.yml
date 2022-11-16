@@ -24,3 +24,10 @@ jobs:
           push: false
           tags: base-manylinux-arm64:latest
           file: ./almalinux8.Dockerfile
+          outputs: type=tar,dest=/tmp/image.tar
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: image
+          path: /tmp/image.tar
